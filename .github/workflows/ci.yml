@@ -33,3 +33,14 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/demo-app:latest .
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/demo-app:latest
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+           docker pull ${{ secrets.DOCKER_USERNAME }}/demo-app:latest
+           docker rm -f demo-app || true
+           docker run -dit -p 80:3000 --name demo-app ${{secrets.DOCKER_USERNAME }}/demo-app:latest
