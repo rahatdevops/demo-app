@@ -1,5 +1,5 @@
 name: CI - Docker Build
-on:17
+on:
 push:
 branches:
 - main
