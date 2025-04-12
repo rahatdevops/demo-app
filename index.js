@@ -5,7 +5,7 @@ const port = 3000;
 
 // Home route
 app.get('/', (req, res) => {
-  res.send('Hello, world!');
+  res.send('This is github CICD Test Site');
 });
 
 // Start server
