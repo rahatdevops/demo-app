@@ -23,5 +23,8 @@ jobs:
       - name: Run unit tests
         run: npm test
 
+      - name: Generate code coverage
+        run: npm run test -- --coverage
+
       - name: Build Docker image
         run: docker build -t demo-app .
